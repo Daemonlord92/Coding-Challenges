@@ -92,6 +92,16 @@ public class Main {
         int[] kidCandyArr2 = {4,2,1,1,2};
         System.out.println(kidsWithCandy(kidCandyArr, 3));
         System.out.println(kidsWithCandy(kidCandyArr2, 1));
+        System.out.println("-------------------------");
+        System.out.println("Compressed String");
+        String test = "aabcccccaaa";
+        String test1 = "abcd";
+        String test2 = "aa";
+        System.out.println(compressWord(test));
+        System.out.println(compressWord(test1));
+        System.out.println(compressWord(test2));
+        System.out.println("-------------------------");
+        System.out.println(Arrays.toString(removeDuplicates(dupArr)));
     }
 
     public static int[] sumArrayPairs(int[] originalArray) {
@@ -121,6 +131,20 @@ public class Main {
                 .toList());
 
         return arr.length != intSet.size();
+    }
+
+    public static int[] removeDuplicates(int[] arr) {
+        if(arr == null | arr.length == 0) {
+            return new int[0];
+        }
+
+        Set<Integer> intSet = new HashSet<Integer>(Arrays.stream(Arrays
+                        .stream(arr)
+                        .boxed()
+                        .toArray(Integer[]::new))
+                        .toList());
+
+        return intSet.stream().mapToInt(Number::intValue).toArray();
     }
 
     public static void fizzBuzz(int n) {
@@ -304,6 +328,31 @@ public class Main {
             }
         }
         return truthList;
+    }
+
+    public static String compressWord(String str) {
+        char[] arr = str.toCharArray();
+        StringBuilder compressString = new StringBuilder("");
+        char holder = arr[0];
+        int count = 0;
+        for (char c : arr) {
+            if(holder == c) {
+                count++;
+            }
+            else {
+                compressString.append(holder);
+                compressString.append(count);
+                holder = c;
+                count = 1;
+            }
+        }
+
+        if(str.length() > compressString.toString().length()){
+            return compressString.toString();
+        }
+        else {
+            return str;
+        }
     }
 
     private static boolean isStopWord(String word, String[] stopWords) {
